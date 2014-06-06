@@ -16,23 +16,28 @@
     <!-- Custom styles for this template -->
     <link href="./sticky-footer.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 
     <style type="text/css">
-    .zoom-enabled {
-       transform: scale(5.0);
-       position: absolute; color:white;
-       transition: transform 0.6s cubic-bezier(0.4, 0, 0, 1) 0s; 
-    }
 
+      .surge-center {
+            /*width:300px;*/
+    /*height:200px;*/
+    position:absolute;
+    left:50%;
+    top:50%;
+    color:white; 
+    transition: transform 0.4s ease-out 0s;
+
+    -webkit-transition: transform 0.4s linear 0s; /* Safari */
+    transition-delay: 0s;
+    -webkit-transition-delay: 1.0s; /* Safari */
+    transform: scale(1.0);
+      }
+
+
+      .surge-transform {
+ 
+      }
 
     </style>
   </head>
@@ -50,9 +55,15 @@
         <!-- </div>
         </div> -->
       </div>
-      <p class="lead zoom">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+      <p class="lead"><span class="surge">Pin</span> a fixed-height footer to the bottom of the viewport in desktop browsers with this custom <span class="surge">HTML</span> and CSS.</p>
       <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+
+
     </div>
+
+
+
 
     <div id="footer">
       <div class="container">
@@ -65,40 +76,162 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
-
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
     <script type="text/javascript">
 
-      var hideZoom = function() {
-        console.log('called');
-        var elem = $(this).parent().find('#surgejs-elementHolder').children().first().detach();
-        $(elem).removeClass('zoom-enabled');
-        $(this).parent().append($(elem));
-        $(this).parent().find('#surgejs-overlay,#surgejs-elementHolder').detach();
-        $('#zoom-container').replaceWith($(elem));
-      }
 
-      $(document).ready(function() {
-          $('.zoom').click(function() {
-              // add overlay div
-              
-              var zoomContainer = $('<div/>').attr('id' , 'zoom-container');
-              var div = $('<div/>').attr('id','surgejs-overlay').click(hideZoom);
-              var parent = $(this).parent();
-              $(div).attr('style' , 'position:fixed;top:0;bottom:0;background-color:rgba(0,0,0,0.8);z-index:9999;width:100%;display:block;left:0;right:0;').appendTo(zoomContainer);
-              var div2 = $('<div/>').attr('id','surgejs-elementHolder').click(hideZoom);
-              $(div2).attr('style' , 'margin: auto;position: absolute;top: 0; left: 0; bottom: 0; right: 0;z-index:10000').appendTo(zoomContainer);
-              var element = $(this);
-              $(this).replaceWith($(zoomContainer));
-              $(div2).append($(element));
-              console.log('surgejs!');
-              $(element).addClass('zoom-enabled');
+      $('.surge').on('click',function(e) {
+           e.stopPropagation()
+          var element = $(this);
+          console.log('Open');
+
+
+
+          var container = $('<div/>');
+          $(container).attr('id','surge-container');
+          $(element).parent().append($(container));
+
+          var div = $('<div/>');
+          $(div).attr('id','surge-overlay');
+          $(div).css({
+            'position'  : 'fixed',
+            'top'       : '0',
+            'bottom'       : '0',
+            'left'       : '0',
+            'right'       : '0',
+            'display'     : 'block',
+            'width'       : '100%',
+            'z-index'     : 9999,
+            'background-color' : 'rgb(0,0,0)',
+            'opacity'   : 0
           });
+          $(container).append( $(div) );
+
+          var div2 = $('<div/>');
+          $(div2).attr('id','surge-content');
+          $(div2).css({
+            'position'  : 'fixed',
+            'top'       : '0',
+            'bottom'       : '0',
+            'left'       : '0',
+            'right'       : '0',
+            'display'     : 'block',
+            'width'       : '100%',
+            'z-index'     : 100000,
+          });
+
+          $(container).append( $(div2) );
+
+
+          var newElem = $(element).clone();
+
+
+          $(div2).append($(newElem));
+
+          newElem.attr('id' , 'surge-target');
+
+          var widthTest = $(newElem).width() * 2 ;
+          var heightTest = $(newElem).height() * 2;
+          console.log( widthTest + ",," + heightTest );
+
+          $(newElem).css({
+              'transform' : 'scale(1.0)',
+              'margin-top':  ( $(element).offset().top - $(window).scrollTop() ) + 'px',
+              'margin-left': $(element).offset().left + 'px',
+              'display' : 'block',
+              'color' : 'white'
+          });
+
+
+
+
+          // console.log(newElem.style);
+
+
+          // console.log( $(newElem).width() + 'px'  +  $(newElem).height() );
+          
+
+
+          var elemDoc = document.getElementById('surge-target');
+          // console.log( elemDoc.style );
+          // elemDoc.style['transition'] = 'transform 0.4s cubic-bezier(0.4, 0, 0, 1) 0s;';
+          // elemDoc.style['transform'] = 'scale(2.0)';
+          // elemDoc.style['marginLeft'] = '1300px';
+          // $(newElem).addClass('surge-center');
+          
+          // setCss3Style(elemDoc,'transition','');
+
+
+          document.getElementById('surge-overlay').style.WebkitTransition = 'opacity 0.4s linear 0s';
+          document.getElementById('surge-overlay').style.MozTransition = 'opacity 0.4s linear 0s';
+
+          document.getElementById('surge-target').style.WebkitTransition = 'transform 0.4s linear 0s';
+          document.getElementById('surge-target').style.MozTransition = 'transform 0.4s linear 0s';
+          
+
+
+          window.setTimeout( function() {
+
+          setCss3Style(document.getElementById('surge-target'),'transform','scale(2.0)');
+          setCss3Style(document.getElementById('surge-overlay'),'opacity','0.8');
+
+          // $('#surge-target').css({
+          //   'position' : 'absolute',
+          //     'top' : '50%',
+          //     'left' : '50%',
+          //     'margin-top': '',
+          //     'margin-left': ''
+          // })
+              
+
+          }, 100);
+
 
       });
 
+      $(document).on('click','#surge-container ' , function() {
+          setCss3Style(document.getElementById('surge-overlay'),'opacity','0');
+          setCss3Style(document.getElementById('surge-target'),'transform','scale(1.0)');
+          
+
+
+          var surgeTarget = document.getElementById('surge-target');
+          surgeTarget.addEventListener('transitionend', function(){  window.setTimeout( closeSurge() , 400); console.log('Close!!'); });
+
+
+
+
+
+      });
+
+
+
+      var closeSurge = function( element ) {
+          $('#surge-container').remove();
+      }
+
+
+      var vendors = ['-moz-','-webkit-','-o-','-ms-','-khtml-',''];
+function toCamelCase(str){
+return str.toLowerCase().replace(/(\-[a-z])/g, function($1){
+            return $1.toUpperCase().replace('-','');
+        });
+    };
+function setCss3Style(el,prop,val){
+  if(!el ) return;
+    for(var i=0,l=vendors.length;i<l;i++)
+        {
+            var p = toCamelCase(vendors[i] + prop);
+
+            if(p in el.style)
+                el.style[p] = val;
+        }
+};
+
     </script>
+
+
   </body>
 </html>
