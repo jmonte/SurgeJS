@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Sticky Footer Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="./sticky-footer.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style type="text/css">
+    .zoom-enabled {
+       transform: scale(5.0);
+       position: absolute; color:white;
+       transition: transform 0.6s cubic-bezier(0.4, 0, 0, 1) 0s; 
+    }
+
+
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <!-- <div style="position:fixed;top:0;bottom:0;background-color:black;z-index:10000;width:100%;display:block;left:0;right:0"> -->
+        <!-- <div style="  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;"> -->
+          <h1 >SurgeJS</h1>
+        <!-- </div>
+        </div> -->
+      </div>
+      <p class="lead zoom">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML and CSS.</p>
+      <p>Use <a href="../sticky-footer-navbar">the sticky footer with a fixed navbar</a> if need be, too.</p>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+
+    <script type="text/javascript">
+
+      var hideZoom = function() {
+        console.log('called');
+        var elem = $(this).parent().find('#surgejs-elementHolder').children().first().detach();
+        $(elem).removeClass('zoom-enabled');
+        $(this).parent().append($(elem));
+        $(this).parent().find('#surgejs-overlay,#surgejs-elementHolder').detach();
+        $('#zoom-container').replaceWith($(elem));
+      }
+
+      $(document).ready(function() {
+          $('.zoom').click(function() {
+              // add overlay div
+              
+              var zoomContainer = $('<div/>').attr('id' , 'zoom-container');
+              var div = $('<div/>').attr('id','surgejs-overlay').click(hideZoom);
+              var parent = $(this).parent();
+              $(div).attr('style' , 'position:fixed;top:0;bottom:0;background-color:rgba(0,0,0,0.8);z-index:9999;width:100%;display:block;left:0;right:0;').appendTo(zoomContainer);
+              var div2 = $('<div/>').attr('id','surgejs-elementHolder').click(hideZoom);
+              $(div2).attr('style' , 'margin: auto;position: absolute;top: 0; left: 0; bottom: 0; right: 0;z-index:10000').appendTo(zoomContainer);
+              var element = $(this);
+              $(this).replaceWith($(zoomContainer));
+              $(div2).append($(element));
+              console.log('surgejs!');
+              $(element).addClass('zoom-enabled');
+          });
+
+      });
+
+    </script>
+  </body>
+</html>
